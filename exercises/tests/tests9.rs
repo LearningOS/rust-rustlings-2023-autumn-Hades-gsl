@@ -29,14 +29,14 @@
 
 extern "Rust" {
     fn my_demo_function(a: u32) -> u32;
-
+    #[link_name = "my_demo_function"]
     fn my_demo_function_alias(a: u32) -> u32;
 }
 
-#[allow(non_snake_case)]
 mod Foo {
-    // No `extern` equals `extern "Rust"`.
-    #[allow(dead_code)]
+    // No `extern` equals `extern "Rust"
+    // `.
+    #[export_name = "my_demo_function"]
     fn my_demo_function(a: u32) -> u32 {
         a
     }
@@ -55,6 +55,7 @@ mod tests {
         // SAFETY: We know those functions are aliases of a safe
         // Rust function.
         unsafe {
+
             my_demo_function(123);
             my_demo_function_alias(456);
         }
